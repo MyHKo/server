@@ -1,12 +1,13 @@
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class threads{
-	static int a = 10;
+	static AtomicInteger a = new AtomicInteger(10);
 	public static void main(String[] args) {
 		
 		
 		Runnable t1 = () -> {
-			int temp = a;
-			try {Thread.sleep(10);} catch (Exception e){} 
-			a = temp + 1;
+			int temp = a.get();
+			a.set(temp + 1);
 			System.out.println(a);
 		};
 		
