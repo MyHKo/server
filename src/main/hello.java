@@ -1,12 +1,12 @@
-import java.io*;
-import java.net;
+import java.io.*;
+import java.net.Socket;
 import java.io.BufferedReader;
 import java.net.ServerSocket;
 
-public class hello() {
-	publis static void main(String[] args) throws IOExecption {
+public class hello {
+	public static void main(String[] args) throws IOException {
 	
-	ServerSocker server = new ServerSocker(8080);
+	ServerSocket server = new ServerSocket(8080);
 	System.out.println("Listening on a port 8080");
 	
 	while(true) {
@@ -15,7 +15,7 @@ public class hello() {
 			System.out.println("client connected");
 			
 			BufferedReader in = new BufferedReader(
-					new InputStreamReader(clientSocket.get)
+					new InputStreamReader(clientSocket.getInputStream()	)
 			);
 			
 			String line = in.readLine();
