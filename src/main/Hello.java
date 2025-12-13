@@ -19,6 +19,7 @@ public class Hello {
 	Selector selector = Selector.open();
 	
 	mainChannel.register(selector, SelectionKey.OP_ACCEPT);
+	ByteBuffer buffer = ByteBuffer.allocate(256);
 	
 	System.out.println("Listening on port 8080");
 	
@@ -39,7 +40,6 @@ public class Hello {
 			}
 			if(key.isReadable()) {
 				SocketChannel client = (SocketChannel) key.channel();
-				ByteBuffer buffer = ByteBuffer.allocate(256);
 				int bytesRead = client.read(buffer);
 				
 				if(bytesRead == -1) {
