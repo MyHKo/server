@@ -1,4 +1,5 @@
-import java.nio.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -41,6 +42,15 @@ public class Hello {
 				ByteBuffer buffer = ByteBuffer.allocate(256);
 				int bytesRead = client.read(buffer);
 				
+				if(bytesRead == -1) {
+					client.close();
+				}
+				else {
+					buffer.flip();
+					String message = StandardCharsets.UTF_8.decode(buffer).toString();
+					System.out.println(message);
+					buffer.clear();
+				}
 			}
 			
 			iterator.remove();
