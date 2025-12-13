@@ -21,6 +21,9 @@ public class Hello {
 	mainChannel.register(selector, SelectionKey.OP_ACCEPT);
 	ByteBuffer buffer = ByteBuffer.allocate(256);
 	
+	String output = "Hello!";
+
+	
 	System.out.println("Listening on port 8080");
 	
 	while(true) {
@@ -50,6 +53,11 @@ public class Hello {
 					String message = StandardCharsets.UTF_8.decode(buffer).toString();
 					System.out.println(message);
 					buffer.clear();
+					ByteBuffer responseBuffer = ByteBuffer.wrap(output.getBytes());
+					while(responseBuffer.hasRemaining()) {
+						client.write(responseBuffer);
+					}
+					client.close();
 				}
 			}
 			
